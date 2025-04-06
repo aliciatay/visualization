@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Audio Features Visualization</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="filter-bar">
+            <div class="filter-item">
+                <span class="filter-label">Genre:</span>
+                <select id="genre-filter">
+                    <!-- Populated by JavaScript -->
+                </select>
+            </div>
+            
+            <div class="filter-item">
+                <span class="filter-label">Min Popularity:</span>
+                <div class="slider-container">
+                    <input type="range" id="popularity-slider" min="70" max="100" value="72" step="1">
+                    <span class="range-values">
+                        <span>72</span>
+                        <span>100</span>
+                    </span>
+                    <span id="popularity-value" class="filter-label">Current: 72</span>
+                </div>
+            </div>
+            
+            <div class="filter-item">
+                <span class="filter-label">Min Platforms:</span>
+                <select id="platforms-filter">
+                    <option value="5" selected>5+ platforms</option>
+                    <option value="6">6+ platforms</option>
+                    <option value="7">7+ platforms</option>
+                    <option value="8">8+ platforms</option>
+                    <option value="9">9+ platforms</option>
+                </select>
+            </div>
+            
+            <button id="reset-button">Clear All Filters</button>
+            
+            <div class="song-count">
+                <span id="song-count" class="stat-value">0</span> songs
+            </div>
+        </div>
+        
+        <div id="visualization"></div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html> 
