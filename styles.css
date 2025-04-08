@@ -357,13 +357,13 @@ input[type="range"] {
 #reset-button {
     background-color: #1DB954; /* Spotify green */
     border-radius: 4px;
-    padding: 8px 16px;
-    font-size: 12px;
+    padding: 6px 12px;
+    font-size: 11px;
     border: none;
     color: white;
     cursor: pointer;
     transition: background-color 0.2s;
-    height: 36px;
+    height: 30px;
     margin-left: 10px;
 }
 

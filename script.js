@@ -71,7 +71,7 @@ console.log("Starting to load CSV data");
 debugLog("Attempting to load CSV data from final_df_cleaned.csv");
 
 // Load the data with better error handling
-d3.csv("final_df_cleaned.csv")
+d3.csv("https://aliciatay.github.io/visualization/final_df_cleaned.csv")
   .then(function(data) {
     console.log("CSV data loaded successfully, row count:", data.length);
     debugLog(`CSV loaded successfully with ${data.length} rows`);
