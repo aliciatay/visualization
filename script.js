@@ -256,30 +256,12 @@ d3.csv("final_df_cleaned.csv")
       }));
     }
 
-    // Define a color scale using Spotify-themed colors (avoiding black since bg is already black)
-    const color = d3.scaleOrdinal()
-      .range([
-        "#1DB954", // Spotify green
-        "#1ED760", // Lighter Spotify green
-        "#2E77D0", // Spotify blue
-        "#509BF5", // Light blue
-        "#F230AA", // Pink 
-        "#AD35D8", // Purple
-        "#7358FF", // Another purple
-        "#E9446A", // Red
-        "#F59B23", // Orange
-        "#F6D845"  // Yellow
-      ]);
-
-    console.log("Color scale created for popularity");
-    debugLog("Created color scale for popularity");
-
     try {
-      // Add a gray background rectangle for better visualization
+      // Add a dark background rectangle for better visualization
       svg.append("rect")
         .attr("width", width)
         .attr("height", height)
-        .attr("fill", "#f9f9f9")
+        .attr("fill", "#1E1E1E") // Dark gray background that matches Spotify's theme
         .attr("rx", 4)
         .lower();
         
@@ -293,11 +275,11 @@ d3.csv("final_df_cleaned.csv")
         .attr("y1", 0)
         .attr("x2", d => x(d))
         .attr("y2", height)
-        .attr("stroke", "#e0e0e0")
+        .attr("stroke", "#333333") // Darker grid lines for better contrast
         .attr("stroke-width", 1)
         .lower();
         
-      // Add background lines (light gray)
+      // Add background lines (darker gray to match Spotify theme)
       const background = svg.append("g")
         .attr("class", "background")
         .selectAll("path")
@@ -306,13 +288,28 @@ d3.csv("final_df_cleaned.csv")
         .append("path")
         .attr("d", path)
         .attr("fill", "none")
-        .attr("stroke", "#e0e0e0")
+        .attr("stroke", "#333333") // Darker background lines
         .attr("stroke-width", 0.5);
 
       console.log("Background lines added:", data.length);
       debugLog(`Added ${data.length} background lines`);
 
-      // Add foreground lines (colored by popularity)
+      // Define a better color scale for Spotify dark theme with more vibrant colors
+      const color = d3.scaleOrdinal()
+        .range([
+          "#1DB954", // Spotify green
+          "#F230AA", // Pink
+          "#509BF5", // Light blue
+          "#F6D845", // Yellow
+          "#E9446A", // Red
+          "#1ED760", // Lighter Spotify green
+          "#7358FF", // Purple
+          "#F59B23", // Orange
+          "#2E77D0", // Spotify blue
+          "#AD35D8"  // Another purple
+        ]);
+
+      // Add foreground lines with improved colors
       const foreground = svg.append("g")
         .attr("class", "foreground")
         .selectAll("path")
@@ -324,7 +321,7 @@ d3.csv("final_df_cleaned.csv")
         .attr("stroke", d => color(d.track_genre))
         .attr("stroke-width", 1.5)
         .attr("fill", "none")
-        .attr("opacity", 0.7)
+        .attr("opacity", 0.8) // Slightly higher opacity for better visibility
         .attr("data-genre", d => d.track_genre)
         .attr("data-name", d => d.track_name);
 
@@ -363,7 +360,7 @@ d3.csv("final_df_cleaned.csv")
       .on("mouseout", function() {
         d3.select(this)
           .attr("stroke-width", 1.5)
-          .attr("opacity", 0.7);
+          .attr("opacity", 0.8);
           
         tooltip.transition()
           .duration(500)
@@ -394,7 +391,7 @@ d3.csv("final_df_cleaned.csv")
         .attr("y", -10)
         .attr("x", 0)
         .style("text-anchor", "middle")
-        .style("fill", "#333")
+        .style("fill", "#FFFFFF") // White text for visibility
         .text(d => d.label);
 
       console.log("Added axes and labels");
@@ -501,7 +498,7 @@ d3.csv("final_df_cleaned.csv")
             .filter(d => d.name === dimension.name)
             .classed("active-axis", true)
             .selectAll(".axis-label")
-            .style("fill", "#f28e2c")
+            .style("fill", "#1DB954") // Use Spotify green for active dimensions
             .style("font-weight", "bold");
         });
         
@@ -509,7 +506,7 @@ d3.csv("final_df_cleaned.csv")
         g.selectAll(".dimension")
           .filter(d => !actives.some(active => active.name === d.name))
           .selectAll(".axis-label")
-          .style("fill", "#333")
+          .style("fill", "#FFFFFF") // White for regular labels
           .style("font-weight", "normal");
       }
 
@@ -523,7 +520,7 @@ d3.csv("final_df_cleaned.csv")
         // Also highlight the axis label
         d3.select(this.parentNode)
           .select(".axis-label")
-          .style("fill", isActive ? "#f28e2c" : "#333")
+          .style("fill", isActive ? "#1DB954" : "#FFFFFF") // Spotify green for active, white for inactive
           .style("font-weight", isActive ? "bold" : "normal");
         
         updateFilters();
@@ -582,9 +579,10 @@ d3.csv("final_df_cleaned.csv")
         .style("text-anchor", "start")
         .style("font-size", "12px")
         .style("font-weight", "bold")
+        .style("fill", "#FFFFFF") // White text for visibility
         .text("Popularity");
       
-      // Create gradient for legend
+      // Create gradient for legend with Spotify colors
       const defs = svg.append("defs");
       const linearGradient = defs.append("linearGradient")
         .attr("id", "popularity-gradient")
@@ -593,30 +591,30 @@ d3.csv("final_df_cleaned.csv")
         .attr("x2", "0%")
         .attr("y2", "0%");
       
-      // Add color stops
+      // Add color stops with vibrant Spotify colors
       linearGradient.append("stop")
         .attr("offset", "0%")
-        .attr("stop-color", color(0));
+        .attr("stop-color", "#1DB954"); // Spotify green
         
       linearGradient.append("stop")
         .attr("offset", "50%")
-        .attr("stop-color", color(0.5));
+        .attr("stop-color", "#509BF5"); // Light blue
         
       linearGradient.append("stop")
         .attr("offset", "100%")
-        .attr("stop-color", color(1));
+        .attr("stop-color", "#F230AA"); // Pink
       
       // Draw legend rectangle with gradient
       legend.append("rect")
         .attr("width", legendWidth)
         .attr("height", legendHeight)
         .style("fill", "url(#popularity-gradient)")
-        .style("stroke", "#e0e0e0")
+        .style("stroke", "#444444") // Darker border
         .style("stroke-width", 1);
       
       // Add axis ticks to legend
       const legendScale = d3.scaleLinear()
-        .domain([0, 1])
+        .domain([70, 100]) // Popularity range is 70-100
         .range([legendHeight, 0]);
       
       const legendAxis = d3.axisRight(legendScale)
@@ -624,7 +622,9 @@ d3.csv("final_df_cleaned.csv")
       
       legend.append("g")
         .attr("transform", `translate(${legendWidth}, 0)`)
-        .call(legendAxis);
+        .call(legendAxis)
+        .selectAll("text")
+        .style("fill", "#E0E0E0"); // Light gray for visibility
 
       debugLog("Added popularity color legend");
     } catch (e) {
@@ -690,7 +690,7 @@ d3.csv("final_df_cleaned.csv")
       
       // Reset all axis labels to normal style
       svg.selectAll(".axis-label")
-        .style("fill", "#333")
+        .style("fill", "#FFFFFF")
         .style("font-weight", "normal");
       
       // Update visualization
