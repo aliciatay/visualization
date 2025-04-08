@@ -66,105 +66,17 @@ p {
     flex-grow: 1;
     position: relative;
     width: 100%;
-    height: 540px; /* Slightly taller to accommodate labels */
-    min-width: 1200px; /* Ensure minimum width for visibility */
-    padding-top: 30px; /* More padding at the top */
-    padding-bottom: 30px; /* More padding at the bottom */
+    height: 450px; /* Reduced from 540px */
+    min-width: 900px; /* Reduced from 1200px */
+    padding-top: 20px; /* Reduced from 30px */
+    padding-bottom: 20px; /* Reduced from 30px */
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
-/* Basic scrollbar styling for better UX */
-#visualization::-webkit-scrollbar {
-    height: 8px;
-    background-color: #121212;
-}
-
-#visualization::-webkit-scrollbar-thumb {
-    background-color: #333;
-    border-radius: 4px;
-}
-
-#visualization::-webkit-scrollbar-thumb:hover {
-    background-color: #1DB954;
-}
-
-/* Make sure SVG elements are visible */
-svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-/* Remove custom scrollbar styling since Tableau will handle scrolling */
-
-/* For embedding in smaller containers */
-@media (max-width: 1200px) {
-    body, html, .container {
-        min-width: 600px;
-    }
-}
-
-.controls {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.filter-group {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-button {
-    padding: 6px 12px;
-    background-color: #5a6268;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Segoe UI', 'Lato', sans-serif;
-    font-size: 12px;
-}
-
-button:hover {
-    background-color: #444;
-}
-
-select {
-    padding: 4px 8px;
-    border: 1px solid #333;
-    border-radius: 4px;
-    background-color: #181818; /* Darker Spotify UI element */
-    color: #FFFFFF;
-    font-size: 12px;
-    min-width: 150px;
-    height: 36px;
-}
-
-label {
-    margin-bottom: 5px;
-}
-
-.background path {
-    fill: none;
-    stroke: #2A2A2A;
-    stroke-width: 0.5px;
-    shape-rendering: crispEdges;
-}
-
-.foreground path {
-    fill: none;
-    stroke-width: 1.2px;
-    transition: all 0.3s;
-    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.15));
-}
-
-/* Custom styling for dimension and labels */
+/* Reduce font sizes for axes and labels */
 .dimension .axis text {
-    font-size: 11px;
+    font-size: 9px; /* Reduced from 11px */
     text-anchor: start;
     transform: rotate(-30deg) translate(-8px, 0px);
     fill: #FFFFFF;
@@ -173,12 +85,12 @@ label {
 }
 
 .dimension text.axis-label {
-    font-size: 12px;
+    font-size: 10px; /* Reduced from 12px */
     font-weight: 600;
     fill: #FFFFFF;
     text-anchor: start;
     text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8);
-    transform: rotate(-25deg) translate(5px, -35px); /* Move labels even higher up */
+    transform: rotate(-25deg) translate(5px, -25px); /* Adjusted positioning for smaller chart */
 }
 
 .brush .extent {
@@ -451,14 +363,14 @@ input[type="range"] {
 .filter-bar {
     display: flex;
     align-items: center;
-    padding: 10px 30px;
-    background-color: #181818; /* Darker Spotify UI element */
+    padding: 8px 20px; /* Reduced padding */
+    background-color: #181818;
     border-bottom: 1px solid #333333;
     flex-shrink: 0;
     overflow-x: auto;
-    gap: 30px;
+    gap: 20px; /* Reduced gap */
     color: #FFFFFF;
-    font-size: 12px;
+    font-size: 10px; /* Reduced from 12px */
 }
 
 .filter-item {
@@ -468,10 +380,10 @@ input[type="range"] {
 }
 
 .filter-label {
-    margin-right: 8px;
+    margin-right: 6px;
     font-weight: normal;
-    color: #B3B3B3; /* Spotify secondary text color */
-    font-size: 12px;
+    color: #B3B3B3;
+    font-size: 10px; /* Reduced from 12px */
 }
 
 .current-value {
@@ -519,14 +431,14 @@ input[type="range"]::-webkit-slider-thumb {
 /* Style legend text properly */
 .legend-title {
     fill: #FFFFFF;
-    font-size: 13px;
+    font-size: 11px; /* Reduced from 13px */
     font-weight: bold;
     text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.7);
 }
 
 .legend text {
     fill: #FFFFFF;
-    font-size: 11px;
+    font-size: 9px; /* Reduced from 11px */
     font-weight: 500;
 }
 
@@ -535,4 +447,28 @@ input[type="range"]::-webkit-slider-thumb {
     stop-color: #1ED760;
 }
 
-/* For Tableau embedding, we'll rely on Tableau's container management */ 
+/* For Tableau embedding, we'll rely on Tableau's container management */
+body.tableau-embed, html.tableau-embed {
+    overflow: auto !important;
+}
+
+/* Make scrollbars more visible for Tableau */
+#visualization::-webkit-scrollbar {
+    height: 10px;
+    background-color: #121212;
+}
+
+#visualization::-webkit-scrollbar-thumb {
+    background-color: #1DB954;
+    border-radius: 5px;
+}
+
+#visualization::-webkit-scrollbar-thumb:hover {
+    background-color: #26E066;
+}
+
+/* Force scrollbar visibility for cross-browser support */
+#visualization {
+    scrollbar-width: thin;
+    scrollbar-color: #1DB954 #121212;
+} 

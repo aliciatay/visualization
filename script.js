@@ -1,7 +1,7 @@
 // Set up dimensions and margins
-const margin = { top: 100, right: 140, bottom: 60, left: 80 };
-const width = 1200 - margin.left - margin.right;
-const height = 500 - margin.top - margin.bottom;
+const margin = { top: 70, right: 100, bottom: 40, left: 60 };
+const width = 900 - margin.left - margin.right;
+const height = 450 - margin.top - margin.bottom;
 
 console.log("Initializing visualization with dimensions:", { width, height, margin });
 
@@ -27,14 +27,28 @@ const svg = d3.select("#visualization")
 console.log("SVG element created");
 debugLog("SVG container created with dimensions: " + (width + margin.left + margin.right) + "x" + (height + margin.top + margin.bottom));
 
-// Simple function to ensure horizontal scrolling works in Tableau
+// Improved horizontal scrolling function for Tableau
 function enableHorizontalScroll() {
   const visualizationContainer = document.getElementById('visualization');
   if (visualizationContainer) {
     visualizationContainer.style.overflowX = 'auto';
-    // Optionally scroll to show the middle of the chart initially
+    visualizationContainer.style.overflowY = 'hidden';
+    
+    // For Tableau specifically
+    if (window.parent && window.parent !== window) {
+      // We're in an iframe (probably Tableau)
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+      visualizationContainer.style.width = '100%';
+      visualizationContainer.style.height = '100%';
+      visualizationContainer.style.minWidth = '900px';
+    }
+    
+    // Scroll to center initially
     setTimeout(() => {
-      visualizationContainer.scrollLeft = (visualizationContainer.scrollWidth - visualizationContainer.clientWidth) / 3;
+      if (visualizationContainer.scrollWidth > visualizationContainer.clientWidth) {
+        visualizationContainer.scrollLeft = (visualizationContainer.scrollWidth - visualizationContainer.clientWidth) / 3;
+      }
     }, 1000);
   }
 }
