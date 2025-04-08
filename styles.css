@@ -144,11 +144,13 @@ label {
     text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.7); /* Add text shadow for better readability */
 }
 
-.dimension text {
-    font-size: 13px;
+.dimension text.axis-label {
+    font-size: 12px;
     font-weight: 600;
     fill: #FFFFFF;
-    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8); /* Stronger text shadow for axis labels */
+    text-anchor: start;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8);
+    transform: none; /* Remove rotation for axis labels */
 }
 
 .brush .extent {
@@ -471,6 +473,7 @@ input[type="range"] {
 .dimension text {
     font-size: 12px;
     font-weight: 500;
+    fill: #FFFFFF;
 }
 
 /* Slider thumb styling */

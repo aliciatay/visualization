@@ -257,11 +257,11 @@ d3.csv("final_df_cleaned.csv")
     }
 
     try {
-      // Add a dark background rectangle for better visualization
+      // Add a dark background rectangle for better visualization that matches the site's background
       svg.append("rect")
         .attr("width", width)
         .attr("height", height)
-        .attr("fill", "#1E1E1E") // Dark gray background that matches Spotify's theme
+        .attr("fill", "#121212") // Match the body background color exactly
         .attr("rx", 4)
         .lower();
         
@@ -275,38 +275,25 @@ d3.csv("final_df_cleaned.csv")
         .attr("y1", 0)
         .attr("x2", d => x(d))
         .attr("y2", height)
-        .attr("stroke", "#333333") // Darker grid lines for better contrast
+        .attr("stroke", "#2A2A2A") // Slightly lighter grid lines for subtle guidance
         .attr("stroke-width", 1)
         .lower();
         
-      // Add background lines (darker gray to match Spotify theme)
-      const background = svg.append("g")
-        .attr("class", "background")
-        .selectAll("path")
-        .data(data)
-        .enter()
-        .append("path")
-        .attr("d", path)
-        .attr("fill", "none")
-        .attr("stroke", "#333333") // Darker background lines
-        .attr("stroke-width", 0.5);
-
-      console.log("Background lines added:", data.length);
-      debugLog(`Added ${data.length} background lines`);
-
-      // Define a better color scale for Spotify dark theme with more vibrant colors
+      // Add background lines (removed entirely to avoid clutter)
+      
+      // Define a brighter color scale for lines to stand out against dark background
       const color = d3.scaleOrdinal()
         .range([
-          "#1DB954", // Spotify green
-          "#F230AA", // Pink
-          "#509BF5", // Light blue
-          "#F6D845", // Yellow
-          "#E9446A", // Red
-          "#1ED760", // Lighter Spotify green
-          "#7358FF", // Purple
-          "#F59B23", // Orange
-          "#2E77D0", // Spotify blue
-          "#AD35D8"  // Another purple
+          "#1ED760", // Brighter Spotify green
+          "#FF47C3", // Brighter pink
+          "#70B5FF", // Brighter blue
+          "#FFE566", // Brighter yellow
+          "#FF6B8B", // Brighter red
+          "#2EFA74", // Even brighter green
+          "#9277FF", // Brighter purple
+          "#FFB94F", // Brighter orange
+          "#4496FF", // Brighter blue
+          "#E665FF"  // Brighter purple
         ]);
 
       // Add foreground lines with improved colors
@@ -319,9 +306,9 @@ d3.csv("final_df_cleaned.csv")
         .attr("d", path)
         .attr("class", "line")
         .attr("stroke", d => color(d.track_genre))
-        .attr("stroke-width", 1.5)
+        .attr("stroke-width", 1.8) // Slightly thicker lines
         .attr("fill", "none")
-        .attr("opacity", 0.8) // Slightly higher opacity for better visibility
+        .attr("opacity", 0.85) // Higher opacity for better visibility
         .attr("data-genre", d => d.track_genre)
         .attr("data-name", d => d.track_name);
 
@@ -331,8 +318,9 @@ d3.csv("final_df_cleaned.csv")
       // Add mouse events
       foreground.on("mouseover", function(event, d) {
         d3.select(this)
-          .attr("stroke-width", 4)
+          .attr("stroke-width", 4.5) // Even thicker on hover
           .attr("opacity", 1)
+          .style("filter", "drop-shadow(0 0 5px rgba(255, 255, 255, 0.5))") // Add glow effect
           .raise();
           
         // Tooltip content
@@ -359,8 +347,9 @@ d3.csv("final_df_cleaned.csv")
       })
       .on("mouseout", function() {
         d3.select(this)
-          .attr("stroke-width", 1.5)
-          .attr("opacity", 0.8);
+          .attr("stroke-width", 1.8)
+          .attr("opacity", 0.85)
+          .style("filter", "none") // Remove glow effect
           
         tooltip.transition()
           .duration(500)
@@ -390,8 +379,10 @@ d3.csv("final_df_cleaned.csv")
         .attr("class", "axis-label")
         .attr("y", -10)
         .attr("x", 0)
-        .style("text-anchor", "middle")
-        .style("fill", "#FFFFFF") // White text for visibility
+        .style("text-anchor", "start")
+        .style("fill", "#FFFFFF")
+        .style("font-weight", "600")
+        .style("font-size", "12px")
         .text(d => d.label);
 
       console.log("Added axes and labels");
@@ -594,11 +585,11 @@ d3.csv("final_df_cleaned.csv")
       // Add color stops with vibrant Spotify colors
       linearGradient.append("stop")
         .attr("offset", "0%")
-        .attr("stop-color", "#1DB954"); // Spotify green
+        .attr("stop-color", "#2EFA74"); // Brighter green
         
       linearGradient.append("stop")
         .attr("offset", "50%")
-        .attr("stop-color", "#509BF5"); // Light blue
+        .attr("stop-color", "#70B5FF"); // Brighter blue
         
       linearGradient.append("stop")
         .attr("offset", "100%")
