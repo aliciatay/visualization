@@ -20,6 +20,7 @@ body {
     height: 100vh;
     border: none;
     background-color: #121212; /* Spotify dark background */
+    overflow: hidden; /* Allow container to handle scroll */
 }
 
 h1 {
@@ -66,11 +67,12 @@ p {
     flex-grow: 1;
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 540px; /* Slightly taller to accommodate labels */
     overflow-x: auto;
+    overflow-y: hidden;
     min-width: 1200px; /* Ensure minimum width for visibility */
-    padding-top: 20px; /* Add padding for labels at the top */
-    padding-bottom: 20px; /* Add padding for labels at the bottom */
+    padding-top: 30px; /* More padding at the top */
+    padding-bottom: 30px; /* More padding at the bottom */
 }
 
 /* Make sure SVG elements are visible */
@@ -79,6 +81,45 @@ svg {
     width: 100%;
     height: 100%;
     overflow: visible;
+}
+
+/* Add proper scrollbar styling for browsers */
+#visualization::-webkit-scrollbar {
+    height: 8px;
+    background-color: #121212;
+}
+
+#visualization::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 4px;
+}
+
+#visualization::-webkit-scrollbar-thumb:hover {
+    background-color: #1DB954;
+}
+
+/* For Firefox */
+#visualization {
+    scrollbar-width: thin;
+    scrollbar-color: #333 #121212;
+}
+
+/* For embedding in smaller containers */
+@media (max-width: 1200px) {
+    body, html, .container {
+        min-width: 600px;
+        overflow-x: auto;
+    }
+    
+    #visualization {
+        overflow-x: auto;
+    }
+}
+
+/* Add fixed height for embedded version */
+.embedded {
+    height: 600px;
+    overflow: auto;
 }
 
 .controls {
@@ -156,7 +197,7 @@ label {
     fill: #FFFFFF;
     text-anchor: start;
     text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8);
-    transform: rotate(-25deg) translate(5px, -22px); /* Move labels up to prevent cutoff */
+    transform: rotate(-25deg) translate(5px, -30px); /* Move labels even higher up */
 }
 
 .brush .extent {
@@ -511,4 +552,47 @@ input[type="range"]::-webkit-slider-thumb {
 /* Update gradient colors to be more distinct */
 #popularity-gradient {
     stop-color: #1ED760;
+}
+
+.embedded #visualization {
+    height: 480px; /* Slightly shorter to fit in embedded mode */
+    min-height: 400px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Adjust filter bar for embedded mode */
+.embedded .filter-bar {
+    padding: 6px 15px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 15px;
+}
+
+/* Make the filter labels more compact */
+.embedded .filter-label {
+    font-size: 11px;
+}
+
+/* Make slider more compact */
+.embedded .slider-container {
+    min-width: 120px;
+}
+
+/* Allow main container to scroll in embedded mode */
+.embedded.container {
+    max-height: 600px;
+    overflow: auto;
+}
+
+/* Ensure axis labels are still visible */
+.dimension text.axis-label {
+    font-size: 12px;
+    font-weight: 600;
+    fill: #FFFFFF;
+    text-anchor: start;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8);
+    transform: rotate(-25deg) translate(5px, -35px); /* Move labels even higher up */
 } 

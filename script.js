@@ -1,5 +1,5 @@
 // Set up dimensions and margins
-const margin = { top: 60, right: 140, bottom: 40, left: 80 };
+const margin = { top: 100, right: 140, bottom: 60, left: 80 };
 const width = 1200 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
@@ -26,6 +26,20 @@ const svg = d3.select("#visualization")
 
 console.log("SVG element created");
 debugLog("SVG container created with dimensions: " + (width + margin.left + margin.right) + "x" + (height + margin.top + margin.bottom));
+
+// Helper function to scroll visualization horizontally
+function scrollVisualization() {
+  const visualizationContainer = document.getElementById('visualization');
+  if (visualizationContainer) {
+    // Auto scroll to middle initially to show important dimensions
+    visualizationContainer.scrollLeft = (visualizationContainer.scrollWidth - visualizationContainer.clientWidth) / 3;
+  }
+}
+
+// Call the scroll function when visualization is ready
+window.addEventListener('load', function() {
+  setTimeout(scrollVisualization, 1000); // Delay to ensure visualization is rendered
+});
 
 // Function to handle errors
 function handleError(error) {
@@ -377,7 +391,7 @@ d3.csv("final_df_cleaned.csv")
         })
         .append("text")
         .attr("class", "axis-label")
-        .attr("y", -10)
+        .attr("y", -15)
         .attr("x", 0)
         .style("text-anchor", "start")
         .style("fill", "#FFFFFF")
@@ -547,7 +561,7 @@ d3.csv("final_df_cleaned.csv")
       svg.append("text")
         .attr("class", "brush-help")
         .attr("x", width / 2)
-        .attr("y", height + 30)
+        .attr("y", height + 35) // Position it lower to avoid overlap
         .attr("text-anchor", "middle")
         .style("font-size", "12px")
         .style("fill", "#777")
