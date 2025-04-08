@@ -65,12 +65,12 @@ p {
 #visualization {
     flex-grow: 1;
     position: relative;
-    overflow: visible;
     width: 100%;
-    height: 500px; /* Updated to match requested height */
-    position: relative;
+    height: 500px;
     overflow-x: auto;
     min-width: 1200px; /* Ensure minimum width for visibility */
+    padding-top: 20px; /* Add padding for labels at the top */
+    padding-bottom: 20px; /* Add padding for labels at the bottom */
 }
 
 /* Make sure SVG elements are visible */
@@ -140,13 +140,14 @@ label {
     filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.15));
 }
 
+/* Fix the axis label positioning for better visibility */
 .dimension .axis text {
     font-size: 11px;
     text-anchor: start;
     transform: rotate(-30deg) translate(-8px, 0px);
-    fill: #FFFFFF; /* White text for maximum visibility */
+    fill: #FFFFFF;
     font-weight: 500;
-    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.7); /* Add text shadow for better readability */
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.7);
 }
 
 .dimension text.axis-label {
@@ -155,7 +156,7 @@ label {
     fill: #FFFFFF;
     text-anchor: start;
     text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8);
-    transform: rotate(-25deg) translate(5px, -15px); /* Adjust positioning to be more visible */
+    transform: rotate(-25deg) translate(5px, -22px); /* Move labels up to prevent cutoff */
 }
 
 .brush .extent {

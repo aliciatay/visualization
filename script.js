@@ -1,5 +1,5 @@
 // Set up dimensions and margins
-const margin = { top: 40, right: 140, bottom: 40, left: 80 };
+const margin = { top: 60, right: 140, bottom: 40, left: 80 };
 const width = 1200 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
@@ -281,19 +281,19 @@ d3.csv("final_df_cleaned.csv")
         
       // Add background lines (removed entirely to avoid clutter)
       
-      // Define a brighter color scale for lines to stand out against dark background with more distinctive colors
+      // Define a clearer divergent color scheme without orange
       const color = d3.scaleOrdinal()
         .range([
-          "#1ED760", // Spotify green
+          "#1DB954", // Spotify green
           "#FF47C3", // Bright pink
-          "#4A90E2", // Clear blue
-          "#F6D845", // Yellow
-          "#FF6B8B", // Salmon red
-          "#2EFA74", // Bright green 
-          "#9277FF", // Purple
-          "#FF8633", // Orange (more distinct)
-          "#00E4FF", // Cyan
-          "#D934FF"  // Magenta
+          "#4676FF", // Royal blue
+          "#00CCFF", // Cyan
+          "#FFE01B", // Bright yellow
+          "#FF4E4E", // Red
+          "#A64DFF", // Purple
+          "#19E6B5", // Teal
+          "#FF83C0", // Light pink
+          "#4CB2FF"  // Sky blue
         ]);
 
       // Add foreground lines with improved colors
@@ -582,14 +582,14 @@ d3.csv("final_df_cleaned.csv")
         .attr("x2", "0%")
         .attr("y2", "0%");
       
-      // Add color stops with vibrant Spotify colors
+      // Add color stops with clearer divergent colors
       linearGradient.append("stop")
         .attr("offset", "0%")
-        .attr("stop-color", "#1ED760"); // Spotify green
+        .attr("stop-color", "#1DB954"); // Spotify green
         
       linearGradient.append("stop")
         .attr("offset", "50%")
-        .attr("stop-color", "#4A90E2"); // Clear blue
+        .attr("stop-color", "#4676FF"); // Royal blue
         
       linearGradient.append("stop")
         .attr("offset", "100%")
