@@ -72,6 +72,21 @@ p {
     padding-bottom: 30px; /* More padding at the bottom */
 }
 
+/* Basic scrollbar styling for better UX */
+#visualization::-webkit-scrollbar {
+    height: 8px;
+    background-color: #121212;
+}
+
+#visualization::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-radius: 4px;
+}
+
+#visualization::-webkit-scrollbar-thumb:hover {
+    background-color: #1DB954;
+}
+
 /* Make sure SVG elements are visible */
 svg {
     display: block;

@@ -27,6 +27,21 @@ const svg = d3.select("#visualization")
 console.log("SVG element created");
 debugLog("SVG container created with dimensions: " + (width + margin.left + margin.right) + "x" + (height + margin.top + margin.bottom));
 
+// Simple function to ensure horizontal scrolling works in Tableau
+function enableHorizontalScroll() {
+  const visualizationContainer = document.getElementById('visualization');
+  if (visualizationContainer) {
+    visualizationContainer.style.overflowX = 'auto';
+    // Optionally scroll to show the middle of the chart initially
+    setTimeout(() => {
+      visualizationContainer.scrollLeft = (visualizationContainer.scrollWidth - visualizationContainer.clientWidth) / 3;
+    }, 1000);
+  }
+}
+
+// Enable horizontal scrolling when visualization is ready
+window.addEventListener('load', enableHorizontalScroll);
+
 // Function to handle errors
 function handleError(error) {
   console.error("Error loading the data: ", error);
