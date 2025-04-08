@@ -27,20 +27,6 @@ const svg = d3.select("#visualization")
 console.log("SVG element created");
 debugLog("SVG container created with dimensions: " + (width + margin.left + margin.right) + "x" + (height + margin.top + margin.bottom));
 
-// Helper function to scroll visualization horizontally
-function scrollVisualization() {
-  const visualizationContainer = document.getElementById('visualization');
-  if (visualizationContainer) {
-    // Auto scroll to middle initially to show important dimensions
-    visualizationContainer.scrollLeft = (visualizationContainer.scrollWidth - visualizationContainer.clientWidth) / 3;
-  }
-}
-
-// Call the scroll function when visualization is ready
-window.addEventListener('load', function() {
-  setTimeout(scrollVisualization, 1000); // Delay to ensure visualization is rendered
-});
-
 // Function to handle errors
 function handleError(error) {
   console.error("Error loading the data: ", error);

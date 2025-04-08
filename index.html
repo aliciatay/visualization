@@ -7,18 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link rel="icon" href="https://open.spotifycdn.com/cdn/images/favicon.5cb2bd30.ico" type="image/x-icon">
-    <style>
-        /* Styles for embedded mode */
-        @media (max-width: 1200px) {
-            .filter-bar {
-                padding: 5px 15px;
-                gap: 15px;
-            }
-            .filter-item {
-                flex-shrink: 0;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -60,16 +48,9 @@
             </div>
         </div>
         
-        <div id="visualization" class="embedded"></div>
+        <div id="visualization"></div>
     </div>
     
     <script src="script.js"></script>
-    <script>
-        // Check if in an iframe (embedded)
-        if (window.self !== window.top) {
-            document.body.classList.add('embedded');
-            document.querySelector('.container').classList.add('embedded');
-        }
-    </script>
 </body>
 </html> 
