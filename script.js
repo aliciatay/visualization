@@ -306,9 +306,9 @@ d3.csv("final_df_cleaned.csv")
         .attr("d", path)
         .attr("class", "line")
         .attr("stroke", d => color(d.track_genre))
-        .attr("stroke-width", 1.8) // Slightly thicker lines
+        .attr("stroke-width", 1.2) // Thinner lines
         .attr("fill", "none")
-        .attr("opacity", 0.85) // Higher opacity for better visibility
+        .attr("opacity", 0.75) // Slightly lower opacity
         .attr("data-genre", d => d.track_genre)
         .attr("data-name", d => d.track_name);
 
@@ -318,7 +318,7 @@ d3.csv("final_df_cleaned.csv")
       // Add mouse events
       foreground.on("mouseover", function(event, d) {
         d3.select(this)
-          .attr("stroke-width", 4.5) // Even thicker on hover
+          .attr("stroke-width", 3) // Thinner highlight on hover
           .attr("opacity", 1)
           .style("filter", "drop-shadow(0 0 5px rgba(255, 255, 255, 0.5))") // Add glow effect
           .raise();
@@ -347,8 +347,8 @@ d3.csv("final_df_cleaned.csv")
       })
       .on("mouseout", function() {
         d3.select(this)
-          .attr("stroke-width", 1.8)
-          .attr("opacity", 0.85)
+          .attr("stroke-width", 1.2) // Match the original stroke width
+          .attr("opacity", 0.75)
           .style("filter", "none") // Remove glow effect
           
         tooltip.transition()
