@@ -1,7 +1,7 @@
 // Set up dimensions and margins
-const margin = { top: 50, right: 200, bottom: 50, left: 80 };
-const width = 1300 - margin.left - margin.right;
-const height = 650 - margin.top - margin.bottom;
+const margin = { top: 40, right: 120, bottom: 40, left: 60 };
+const width = 1008 - margin.left - margin.right;
+const height = 500 - margin.top - margin.bottom;
 
 console.log("Initializing visualization with dimensions:", { width, height, margin });
 
@@ -256,10 +256,20 @@ d3.csv("final_df_cleaned.csv")
       }));
     }
 
-    // Define a sequential color scale for popularity
-    const popularityColorScale = d3.scaleSequential()
-      .domain([70, 100])  // Popularity ranges from 70 to 100
-      .interpolator(d3.interpolateRgb("#4e79a7", "#f28e2c"));  // Blue to orange
+    // Define a color scale using Spotify-themed colors (avoiding black since bg is already black)
+    const color = d3.scaleOrdinal()
+      .range([
+        "#1DB954", // Spotify green
+        "#1ED760", // Lighter Spotify green
+        "#2E77D0", // Spotify blue
+        "#509BF5", // Light blue
+        "#F230AA", // Pink 
+        "#AD35D8", // Purple
+        "#7358FF", // Another purple
+        "#E9446A", // Red
+        "#F59B23", // Orange
+        "#F6D845"  // Yellow
+      ]);
 
     console.log("Color scale created for popularity");
     debugLog("Created color scale for popularity");
@@ -309,12 +319,12 @@ d3.csv("final_df_cleaned.csv")
         .data(data)
         .enter()
         .append("path")
-        .attr("class", "line")
         .attr("d", path)
+        .attr("class", "line")
+        .attr("stroke", d => color(d.track_genre))
+        .attr("stroke-width", 1.5)
         .attr("fill", "none")
-        .style("stroke", d => popularityColorScale(d.popularity))
-        .style("opacity", 0.7)
-        .style("stroke-width", "1.2px")
+        .attr("opacity", 0.7)
         .attr("data-genre", d => d.track_genre)
         .attr("data-name", d => d.track_name);
 
@@ -323,79 +333,42 @@ d3.csv("final_df_cleaned.csv")
 
       // Add mouse events
       foreground.on("mouseover", function(event, d) {
-          // Highlight the line on mouseover
-          d3.select(this)
-            .style("stroke-width", "2.5px")
-            .style("opacity", 1)
-            .style("z-index", 10)
-            .raise(); // Bring to front
+        d3.select(this)
+          .attr("stroke-width", 4)
+          .attr("opacity", 1)
+          .raise();
           
-          // Highlight other lines with similar popularity (±3 points)
-          foreground.filter(function(other) { 
-            return Math.abs(other.popularity - d.popularity) <= 3 && 
-                  d3.select(this).attr("data-name") !== d.track_name;
-          })
-          .style("opacity", 0.85);
+        // Tooltip content
+        let html = `
+          <div class="song-title">${d.track_name}</div>
+          <div>Artist: ${d.artists}</div>
+          <div>Genre: ${d.track_genre}</div>
+          <div>Popularity: ${d.popularity}</div>
+          <div class="section-title">Audio Features</div>
+          <div class="feature-grid">`;
           
-          // Create tooltip
-          tooltip.transition()
-            .duration(200)
-            .style("opacity", .9);
-          
-          // Format features for display
-          let featuresHtml = '';
-          
-          // Add main audio features
-          const mainFeatures = dimensions.map(dim => {
-            let value = d[dim.name];
-            if (typeof value === 'number') {
-              value = value.toFixed(3);
-            }
-            return `
-              <div class="feature-item">
-                <span class="feature-label">${dim.label}:</span>
-                <span class="feature-value">${value}</span>
-              </div>
-            `;
-          }).join('');
-          
-          // Format tooltip content with improved styling
-          const content = `
-            <div class="song-title">${d.track_name}</div>
-            <div><strong>Artist:</strong> ${d.artists}</div>
-            <div><strong>Genre:</strong> ${d.track_genre}</div>
-            <div><strong>Popularity:</strong> ${d.popularity}</div>
-            <div><strong>Hit Count:</strong> ${d.platform_hit_count} platforms</div>
-            <div><strong>Album:</strong> ${d.album_name || 'N/A'}</div>
-            <div><strong>Release Year:</strong> ${d.Release_Date ? d.Release_Date.substring(0, 4) : "N/A"}</div>
-            
-            <div class="section-title">Features:</div>
-            <div class="feature-grid">
-              ${mainFeatures}
-            </div>
-          `;
-          
-          tooltip.html(content)
-            .style("left", (event.pageX + 10) + "px")
-            .style("top", (event.pageY - 28) + "px");
-        })
-        .on("mouseout", function(event, d) {
-          // Reset line style
-          d3.select(this)
-            .style("stroke-width", "1.2px")
-            .style("opacity", 0.7);
-          
-          // Reset other lines
-          foreground.filter(function() { 
-            return d3.select(this).attr("data-name") !== d.track_name;
-          })
-          .style("opacity", 0.7);
-          
-          // Hide tooltip
-          tooltip.transition()
-            .duration(500)
-            .style("opacity", 0);
+        dimensions.forEach(dim => {
+          html += `<div class="feature-item"><span class="feature-label">${dim.label}:</span> ${d[dim.name].toFixed(2)}</div>`;
         });
+        
+        html += `</div>`;
+        
+        tooltip.transition()
+          .duration(200)
+          .style("opacity", .9);
+        tooltip.html(html)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 28) + "px");
+      })
+      .on("mouseout", function() {
+        d3.select(this)
+          .attr("stroke-width", 1.5)
+          .attr("opacity", 0.7);
+          
+        tooltip.transition()
+          .duration(500)
+          .style("opacity", 0);
+      });
 
       console.log("Added mouse events to lines");
       debugLog("Added interactive mouse events");
@@ -623,15 +596,15 @@ d3.csv("final_df_cleaned.csv")
       // Add color stops
       linearGradient.append("stop")
         .attr("offset", "0%")
-        .attr("stop-color", popularityColorScale(70));
+        .attr("stop-color", color(0));
         
       linearGradient.append("stop")
         .attr("offset", "50%")
-        .attr("stop-color", popularityColorScale(85));
+        .attr("stop-color", color(0.5));
         
       linearGradient.append("stop")
         .attr("offset", "100%")
-        .attr("stop-color", popularityColorScale(100));
+        .attr("stop-color", color(1));
       
       // Draw legend rectangle with gradient
       legend.append("rect")
@@ -643,7 +616,7 @@ d3.csv("final_df_cleaned.csv")
       
       // Add axis ticks to legend
       const legendScale = d3.scaleLinear()
-        .domain([70, 100])
+        .domain([0, 1])
         .range([legendHeight, 0]);
       
       const legendAxis = d3.axisRight(legendScale)
