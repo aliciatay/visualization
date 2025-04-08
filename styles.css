@@ -99,7 +99,7 @@ button {
     border-radius: 4px;
     cursor: pointer;
     font-family: 'Segoe UI', 'Lato', sans-serif;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 button:hover {
@@ -112,7 +112,7 @@ select {
     border-radius: 4px;
     background-color: #181818; /* Darker Spotify UI element */
     color: #FFFFFF;
-    font-size: 14px;
+    font-size: 12px;
     min-width: 150px;
     height: 36px;
 }
@@ -123,28 +123,32 @@ label {
 
 .background path {
     fill: none;
-    stroke: #333333;
-    stroke-width: 1px;
+    stroke: #2A2A2A;
+    stroke-width: 0.5px;
     shape-rendering: crispEdges;
 }
 
 .foreground path {
     fill: none;
-    stroke-width: 1.5;
-    transition: all 0.2s;
+    stroke-width: 1.8px;
+    transition: all 0.3s;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.15));
 }
 
 .dimension .axis text {
     font-size: 11px;
     text-anchor: middle;
     transform: rotate(-30deg);
-    fill: #E0E0E0; /* Light gray for better visibility */
+    fill: #FFFFFF; /* White text for maximum visibility */
+    font-weight: 500;
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.7); /* Add text shadow for better readability */
 }
 
 .dimension text {
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 600;
     fill: #FFFFFF;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8); /* Stronger text shadow for axis labels */
 }
 
 .brush .extent {
@@ -157,6 +161,7 @@ label {
 .axis path {
     fill: none;
     stroke: #555555; /* Lighter gray for axis lines to be visible against dark background */
+    stroke-width: 1.2px; /* Slightly thicker axis lines */
     shape-rendering: crispEdges;
 }
 
@@ -176,15 +181,15 @@ label {
     pointer-events: all;
 }
 
-/* Tooltip styling */
+/* Tooltip styling with more contrast */
 .tooltip {
     position: absolute;
-    background-color: rgba(30, 30, 30, 0.95); /* Slightly lighter than background for contrast */
-    border: 1px solid #444;
+    background-color: rgba(24, 24, 24, 0.95); /* Dark but distinct from background */
+    border: 1px solid #666;
     border-radius: 4px;
-    padding: 12px;
+    padding: 14px;
     pointer-events: none;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 255, 255, 0.1);
     max-width: 350px;
     z-index: 1000;
     font-size: 13px;
@@ -192,11 +197,13 @@ label {
     color: #FFFFFF;
 }
 
+/* Song title in tooltip with extra pop */
 .song-title {
     font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #1DB954; /* Spotify green for emphasis */
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: #2EFA74; /* Brightest green for emphasis */
+    text-shadow: 0px 0px 3px rgba(46, 250, 116, 0.3); /* Green glow */
 }
 
 .section-title {
@@ -312,7 +319,7 @@ input[type="range"] {
 .range-values {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 10px;
     color: #B3B3B3;
     padding: 4px 0;
 }
@@ -321,7 +328,7 @@ input[type="range"] {
     background-color: #1DB954; /* Spotify green */
     border-radius: 4px;
     padding: 8px 16px;
-    font-size: 14px;
+    font-size: 12px;
     border: none;
     color: white;
     cursor: pointer;
@@ -336,7 +343,7 @@ input[type="range"] {
 
 .song-count {
     margin-left: auto;
-    font-size: 14px;
+    font-size: 12px;
     color: #FFFFFF; /* White text */
     padding-right: 10px;
 }
@@ -412,10 +419,10 @@ input[type="range"] {
     color: #856404;
 }
 
-/* Add styling for the tableau-like color palette */
+/* Add styling for the lines to stand out */
 .line {
-    transition: stroke-width 0.2s, opacity 0.2s;
-    opacity: 0.7;
+    transition: all 0.3s;
+    opacity: 0.85;
 }
 
 /* Filter bar styling to match Spotify theme */
@@ -429,6 +436,7 @@ input[type="range"] {
     overflow-x: auto;
     gap: 30px;
     color: #FFFFFF;
+    font-size: 12px;
 }
 
 .filter-item {
@@ -441,7 +449,7 @@ input[type="range"] {
     margin-right: 8px;
     font-weight: normal;
     color: #B3B3B3; /* Spotify secondary text color */
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .current-value {
@@ -471,15 +479,16 @@ input[type="range"]::-webkit-slider-thumb {
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: #1DB954; /* Spotify green */
+    background: #2EFA74; /* Brighter green */
     cursor: pointer;
+    box-shadow: 0 0 5px rgba(46, 250, 116, 0.7); /* Add glow effect */
     margin-top: -5px;
 }
 
 /* Current value styling */
 #popularity-value {
     color: #FFFFFF; /* White text for visibility */
-    font-size: 14px;
+    font-size: 12px;
     padding-top: 4px;
     display: block;
 }
@@ -487,10 +496,13 @@ input[type="range"]::-webkit-slider-thumb {
 /* Style legend text properly */
 .legend-title {
     fill: #FFFFFF;
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.7);
 }
 
 .legend text {
-    fill: #E0E0E0;
-    font-size: 10px;
+    fill: #FFFFFF;
+    font-size: 11px;
+    font-weight: 500;
 } 
