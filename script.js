@@ -411,7 +411,7 @@ d3.csv("https://aliciatay.github.io/visualization/final_df_cleaned.csv")
         .style("text-anchor", "start")
         .style("fill", "#FFFFFF")
         .style("font-weight", "600")
-        .style("font-size", "12px")
+        .style("font-size", "7px")
         .text(d => d.label);
 
       console.log("Added axes and labels");

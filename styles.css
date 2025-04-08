@@ -76,7 +76,7 @@ p {
 
 /* Reduce font sizes for axes and labels */
 .dimension .axis text {
-    font-size: 9px; /* Reduced from 11px */
+    font-size: 6px; /* Reduced from 9px */
     text-anchor: start;
     transform: rotate(-30deg) translate(-8px, 0px);
     fill: #FFFFFF;
@@ -85,7 +85,7 @@ p {
 }
 
 .dimension text.axis-label {
-    font-size: 10px; /* Reduced from 12px */
+    font-size: 7px; /* Reduced from 10px */
     font-weight: 600;
     fill: #FFFFFF;
     text-anchor: start;
