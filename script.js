@@ -1,6 +1,6 @@
 // Set up dimensions and margins
-const margin = { top: 40, right: 120, bottom: 40, left: 60 };
-const width = 1008 - margin.left - margin.right;
+const margin = { top: 40, right: 140, bottom: 40, left: 80 };
+const width = 1200 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
 console.log("Initializing visualization with dimensions:", { width, height, margin });
@@ -281,19 +281,19 @@ d3.csv("final_df_cleaned.csv")
         
       // Add background lines (removed entirely to avoid clutter)
       
-      // Define a brighter color scale for lines to stand out against dark background
+      // Define a brighter color scale for lines to stand out against dark background with more distinctive colors
       const color = d3.scaleOrdinal()
         .range([
-          "#1ED760", // Brighter Spotify green
-          "#FF47C3", // Brighter pink
-          "#70B5FF", // Brighter blue
-          "#FFE566", // Brighter yellow
-          "#FF6B8B", // Brighter red
-          "#2EFA74", // Even brighter green
-          "#9277FF", // Brighter purple
-          "#FFB94F", // Brighter orange
-          "#4496FF", // Brighter blue
-          "#E665FF"  // Brighter purple
+          "#1ED760", // Spotify green
+          "#FF47C3", // Bright pink
+          "#4A90E2", // Clear blue
+          "#F6D845", // Yellow
+          "#FF6B8B", // Salmon red
+          "#2EFA74", // Bright green 
+          "#9277FF", // Purple
+          "#FF8633", // Orange (more distinct)
+          "#00E4FF", // Cyan
+          "#D934FF"  // Magenta
         ]);
 
       // Add foreground lines with improved colors
@@ -585,15 +585,15 @@ d3.csv("final_df_cleaned.csv")
       // Add color stops with vibrant Spotify colors
       linearGradient.append("stop")
         .attr("offset", "0%")
-        .attr("stop-color", "#2EFA74"); // Brighter green
+        .attr("stop-color", "#1ED760"); // Spotify green
         
       linearGradient.append("stop")
         .attr("offset", "50%")
-        .attr("stop-color", "#70B5FF"); // Brighter blue
+        .attr("stop-color", "#4A90E2"); // Clear blue
         
       linearGradient.append("stop")
         .attr("offset", "100%")
-        .attr("stop-color", "#F230AA"); // Pink
+        .attr("stop-color", "#FF47C3"); // Bright pink
       
       // Draw legend rectangle with gradient
       legend.append("rect")
